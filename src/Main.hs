@@ -1,5 +1,12 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main where
 
+import           Network.HTTP.Types
+import           Network.Wai
+import           Network.Wai.Handler.Warp
+import           Web.Simple.Controller
+
 main :: IO ()
-main = do
-  putStrLn "hello world"
+main = run 8000 $ controllerApp () $ do
+  routeTop . respond $ responseLBS status200 [(hContentType, "text/plain")] "Hello world!"

@@ -5,9 +5,9 @@ version:             0.1.0.0
 homepage:            https://github.com/githubuser/Seagull#readme
 license:             BSD3
 license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2017 Author name here
+author:              Kai Sara Fransson
+maintainer:          franssonkai@gmail.com
+copyright:           2017 Kai Sara Fransson
 category:            Web
 build-type:          Simple
 cabal-version:       >=1.10
@@ -18,3 +18,8 @@ executable Seagull
   main-is:             Main.hs
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5
+                     , warp
+                     , wai
+                     , http-types
+                     , simple
+                     , bytestring
