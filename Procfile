@@ -1,1 +1,1 @@
-web: Seagull   # $ cat *.cabal | grep executable
+web: Seagull
