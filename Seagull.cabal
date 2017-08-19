@@ -14,7 +14,7 @@ cabal-version:       >=1.10
 extra-source-files:  README.md
 
 library
-  hs-source-dirs:      src\Seagull
+  hs-source-dirs:      src/Seagull
   exposed-modules:     Seagull
   build-depends:       base >= 4.7 && < 5
                      , wai
