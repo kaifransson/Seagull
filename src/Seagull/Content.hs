@@ -17,6 +17,8 @@ index view = H.docTypeHtml $ do
     H.title "Seagull"
   H.body $ do
     H.h1 "Seagull"
+    H.nav $
+        H.a H.! A.href "/" $ "[Home]"
     H.h3 "aka MåS aka MaaS aka Meds as a Service"
     H.div H.! A.id "main-content" $
         view
