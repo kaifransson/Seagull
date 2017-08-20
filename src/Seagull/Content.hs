@@ -2,6 +2,7 @@
 
 module Content ( index
                , showButton
+               , secret
                , View
                 ) where
 
@@ -26,3 +27,7 @@ showButton :: View
 showButton =
     H.form H.! A.method "POST" $
       H.button "Show"
+
+secret :: View
+secret =
+    H.p "it's a secret to everybody"
