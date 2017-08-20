@@ -15,4 +15,7 @@ import           Content
 type SeagullController = Controller ()
 
 seagull :: SeagullController ()
-seagull = routeTop . respond $ responseLBS status200 [(hContentType, "text/html")] (fromString . renderHtml $ index)
+seagull = do
+  let content = fromString . renderHtml . index $ showButton
+  let response = responseLBS status200 [(hContentType, "text/html")] content
+  routeTop . respond $ response
