@@ -12,10 +12,13 @@ import           Seagull
 
 authMiddleware :: Middleware
 authMiddleware = let checkCreds u p = return $ u == "test" && p == "pw"
-                     authSettings = "The sea" { authIsProtected = const . return $ True }
+                     authSettings = "The sea" { authIsProtected = isProtected }
                   in basicAuth checkCreds authSettings
+
+isProtected :: Request -> IO Bool
+isProtected = return . (=="POST") . requestMethod
 
 main :: IO ()
 main = do
   port <- maybe 8000 read <$> lookupEnv "PORT"
-  run port $ controllerApp () seagull
+  run port $ authMiddleware $ controllerApp () seagull
