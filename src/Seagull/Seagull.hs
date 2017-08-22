@@ -21,4 +21,4 @@ seagull = do
   let respondIndex = respond . responseLBS status200 [(hContentType, "text/html")] . content
   routeTop $ do
     routeMethod GET $ respondIndex showButton
-    routeMethod POST $ respondIndex (secret False)
+    routeMethod POST $ respondIndex secret
