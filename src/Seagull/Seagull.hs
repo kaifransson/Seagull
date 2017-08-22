@@ -5,7 +5,6 @@ module Seagull ( seagull
                , SeagullState(SState) )
                where
 
-import           Control.Monad.Trans
 import           Data.String
 import           Network.HTTP.Types
 import           Network.HTTP.Types.Method

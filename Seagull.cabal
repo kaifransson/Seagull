@@ -32,4 +32,6 @@ executable Seagull
                      , warp
                      , bytestring
                      , simple
+                     , wai
+                     , wai-extra
                      , Seagull
