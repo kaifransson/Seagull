@@ -30,6 +30,6 @@ showButton =
     H.form ! method "POST" $
       H.button "Show"
 
-secret :: View
-secret =
-    p "it's a secret to everybody"
+secret :: Bool -> View
+secret True  = p "it's a secret to everybody"
+secret False = p "ones who does not have triforce can't go in"
