@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Seagull ( seagull
-               , SeagullController )
+               , SeagullState )
                where
 
 import           Data.String
@@ -14,7 +14,9 @@ import           Web.Simple.Controller
 
 import           Content
 
-type SeagullController = Controller ()
+type SeagullController = Controller SeagullState
+
+type SeagullState = ()
 
 authMiddleware :: Middleware
 authMiddleware = let checkCreds u p = return $ u == "test" && p == "pw"
@@ -24,7 +26,7 @@ authMiddleware = let checkCreds u p = return $ u == "test" && p == "pw"
 isProtected :: Request -> IO Bool
 isProtected = return . (=="POST") . requestMethod
 
-seagull :: () -> Application
+seagull :: SeagullState -> Application
 seagull initalState = authMiddleware $ controllerApp initalState $ do
   let content = fromString . renderHtml . index
   let respondIndex = respond . responseLBS status200 [(hContentType, "text/html")] . content
