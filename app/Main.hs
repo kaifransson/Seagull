@@ -18,6 +18,4 @@ authMiddleware = let checkCreds u p = return $ u == "test" && p == "pw"
 main :: IO ()
 main = do
   port <- maybe 8000 read <$> lookupEnv "PORT"
-  let defaultState = SState False
-  let app = controllerApp defaultState seagull
-  run port $ authMiddleware app
+  run port $ controllerApp () seagull
