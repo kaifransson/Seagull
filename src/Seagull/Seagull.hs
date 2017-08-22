@@ -1,9 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Seagull ( seagull
-               , SeagullController )
+               , SeagullController
+               , SeagullState(SState) )
                where
 
+import           Control.Monad.Trans
 import           Data.String
 import           Network.HTTP.Types
 import           Network.HTTP.Types.Method
@@ -13,12 +15,14 @@ import           Web.Simple.Controller
 
 import           Content
 
-type SeagullController = Controller ()
+type SeagullController = Controller SeagullState
+
+newtype SeagullState = SState { isAuthorized :: Bool }
 
 seagull :: SeagullController ()
 seagull = do
   let content = fromString . renderHtml . index
-  let respondIndex = respond . responseLBS status200 [(hContentType, "text/html")] . content
+  let respondIndex status = respond . responseLBS status [(hContentType, "text/html")] . content
   routeTop $ do
-    routeMethod GET $ respondIndex showButton
-    routeMethod POST $ respondIndex (secret False)
+    routeMethod GET $ respondIndex status200 showButton
+    routeMethod POST $ respondIndex status401 (secret False)

@@ -9,4 +9,5 @@ import           Seagull
 main :: IO ()
 main = do
   port <- maybe 8000 read <$> lookupEnv "PORT"
-  run port $ controllerApp () seagull
+  let defaultState = SState False
+  run port $ controllerApp defaultState seagull
