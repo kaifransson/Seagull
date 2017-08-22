@@ -8,6 +8,7 @@ import           Data.String
 import           Network.HTTP.Types
 import           Network.HTTP.Types.Method
 import           Network.Wai
+import           Network.Wai.Middleware.HttpAuth
 import           Text.Blaze.Html.Renderer.Pretty
 import           Web.Simple.Controller
 
@@ -15,8 +16,16 @@ import           Content
 
 type SeagullController = Controller ()
 
-seagull :: SeagullController ()
-seagull = do
+authMiddleware :: Middleware
+authMiddleware = let checkCreds u p = return $ u == "test" && p == "pw"
+                     authSettings = "The sea" { authIsProtected = isProtected }
+                  in basicAuth checkCreds authSettings
+
+isProtected :: Request -> IO Bool
+isProtected = return . (=="POST") . requestMethod
+
+seagull :: () -> Application
+seagull initalState = authMiddleware $ controllerApp initalState $ do
   let content = fromString . renderHtml . index
   let respondIndex = respond . responseLBS status200 [(hContentType, "text/html")] . content
   routeTop $ do
